@@ -8,16 +8,25 @@ const parallelConfig = {
       source: "webdriverio:sample-master:v1.2",
     },
   },
-  services: [["browserstack", { buildIdentifier: "#${BUILD_NUMBER}" }]],
+  services: [["browserstack", { 
+    browserstackLocal: true, 
+    buildIdentifier: '#${BUILD_NUMBER}', 
+    opts: { 
+      forcelocal: false, 
+      localIdentifier: 'webdriverio-browserstack-repo' 
+    } 
+  },]],
   capabilities: [
     {
       browserName: "safari",
       "appium:nativeWebTap": true,
       "bstack:options": {
-        deviceName: "iPhone 14",
-        osVersion: "16",
+        deviceName: "iPhone 15",
+        osVersion: "17",
         idleTimeout: 300,
         enableApplePay: true,
+        local: true,
+        localIdentifier: "webdriverio-browserstack-repo"
       },
     },
   ],

@@ -1,3 +1,5 @@
+const { DRIVER_DEFAULT_ENDPOINT } = require("webdriverio/build/constants");
+
 describe("Apple Pay Test", () => {
   it("check if Apple Pay works", async () => {
     await browser.url("https://applepaydemo.apple.com");
@@ -26,6 +28,20 @@ describe("Apple Pay Test", () => {
       'browserstack_executor:{"action":"applePay", "arguments": {"confirmPayment" : "true"}}'
     );
 
-    await browser.keys("123456");
+    const keySequence = ["1", "2", "3", "4", "5", "6"];
+
+    const keyDownActions = keySequence.map((value) => ({
+      type: "keyDown",
+      value,
+    }));
+    const keyUpActions = keySequence.map((value) => ({ type: "keyUp", value }));
+
+    await browser.performActions([
+      {
+        type: "key",
+        id: "keyboard",
+        actions: [...keyDownActions, ...keyUpActions],
+      },
+    ]);
   });
 });

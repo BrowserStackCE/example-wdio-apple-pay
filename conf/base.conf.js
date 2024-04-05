@@ -14,7 +14,15 @@ exports.config = {
   connectionRetryTimeout: 240000,
   connectionRetryCount: 3,
   hostname: 'hub.browserstack.com',
-  services: [['browserstack']],
+  services: [['browserstack',
+  { 
+    browserstackLocal: true, 
+    buildIdentifier: '#${BUILD_NUMBER}', 
+    opts: { 
+      forcelocal: false, 
+      localIdentifier: 'webdriverio-browserstack-repo' 
+    } 
+  },]],
 
   before: function () {
     var chai = require('chai');
